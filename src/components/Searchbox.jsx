@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import css from "./SearchBox.module.css"
 
-export default function Searchbox({value, onChange, contacts}) {
+export default function SearchBox({value, onChange, contacts}) {
 
   const [filteredContacts, setFilteredContacts] = useState([]);
 
