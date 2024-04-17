@@ -3,9 +3,11 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg' */
 /* import './App.css' */
 
-import { useState } from 'react';
-import SearchBox from './Searchbox.jsx';
-import ContactList from './ContactList.jsx'
+import { useState, useEffect } from 'react';
+import SearchBox from "./SearchBox.jsx";
+import ContactList from './ContactList.jsx';
+import ContactForm from './ContactForm.jsx';
+import css from './App.module.css'
 
 
 
@@ -22,22 +24,41 @@ function App() {
     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ]);
-  const [value, setValues] = useState("");
+  const [value, setValues] = useState(() => {
+    const savedContacts = localStorage.getItem("contacts");
+    return savedContacts ? JSON.parse(savedContacts) : "";
+  });
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const handleChange = (event) => {
-    setValues(event.target.value);
+    setValues(event.target.value.toString());
   };
 
+  const addContact = (newContact) => {
+    setContacts([...contacts, newContact]);
+  };
+ 
+  const onDelete = (contactId) => {
+    setContacts(contacts.filter(contact => contact.id !== contactId));
+  };
+
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(value.toLowerCase())
+  );
+  
 
   return (
     <>
- <div>
+ <div className={css.container}>
   <h1>Phonebook</h1>
-  {/* <ContactForm /> */}
+  <ContactForm addContact={addContact}/>
 
-  <SearchBox value={value} onChange={handleChange}/>
+  <SearchBox value={value} onChange={handleChange} contacts={filteredContacts}/>
 
-<ContactList contacts={contacts} />
+<ContactList contacts={filteredContacts} onDelete={onDelete}/>
 </div>
 
     </>
