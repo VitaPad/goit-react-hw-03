@@ -4,9 +4,9 @@ import viteLogo from '/vite.svg' */
 /* import './App.css' */
 
 import { useState, useEffect } from 'react';
-import SearchBox from "./searchBox.jsx";
 import ContactList from './ContactList.jsx';
 import ContactForm from './ContactForm.jsx';
+import SearchBox from './Searchbox.jsx';
 import css from './App.module.css'
 
 
