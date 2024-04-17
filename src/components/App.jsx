@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg' */
 /* import './App.css' */
 
 import { useState, useEffect } from 'react';
-import SearchBox from "./SearchBox.jsx";
+import SearchBox from "./searchBox.jsx";
 import ContactList from './ContactList.jsx';
 import ContactForm from './ContactForm.jsx';
 import css from './App.module.css'
